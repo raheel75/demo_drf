@@ -19,7 +19,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-        # UserProfile also associate here.
+        UserProfile.objects.create(user=user, cell='03yyXXXXXXX')
         return user
 
     def create_superuser(self, email, password, **extra_fields):

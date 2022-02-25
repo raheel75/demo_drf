@@ -29,7 +29,6 @@ class UserSerializer(serializers.ModelSerializer):
         try:
             profile = instance.profile
         except Exception as e:
-            print('explicitly creating profile object')
             profile = UserProfile.objects.create(user=instance)
 
         instance.first_name = validated_data.get('first_name', instance.first_name)
