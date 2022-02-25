@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, UserProfile
+from .models import CustomUser, UserProfile, Post
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -41,3 +41,13 @@ class UserSerializer(serializers.ModelSerializer):
         profile.save()
 
         return instance
+
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'description']
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        return Post.objects.create(user=user, **validated_data)
